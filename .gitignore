@@ -1,0 +1,99 @@
+# ==========================================
+# Environment Variables & Secrets
+# ==========================================
+.env
+.env.*
+!.env.example
+!.env.test.example
+
+# ==========================================
+# Dependencies
+# ==========================================
+node_modules/
+.pnpm-store/
+jspm_packages/
+web_modules/
+
+# ==========================================
+# Build & Compilation Output (TypeScript)
+# ==========================================
+dist/
+build/
+out/
+.swc/
+*.tsbuildinfo
+
+# ==========================================
+# Test Reports & Coverage (Vitest)
+# ==========================================
+coverage/
+.vitest/
+.nyc_output/
+*.lcov
+
+# ==========================================
+# Logs & Debugging
+# ==========================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==========================================
+# Local Database & ORMs
+# ==========================================
+*.sqlite
+*.sqlite-journal
+*.db
+.docker/
+
+# ==========================================
+# Operating System Files
+# ==========================================
+# Fedora / GNOME / KDE / Linux
+.directory
+.thumbnails/
+.cache/
+*~
+*.swp
+*.swo
+\#*\#
+
+# macOS & Windows
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ==========================================
+# Editors & IDEs
+# ==========================================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# ==========================================
+# Temporary Files & Process Locks
+# ==========================================
+.tmp/
+.temp/
+*.pid
+*.seed
+*.pid.lock
+
+# ==========================================
+# Local Documentation
+# ==========================================
+gotchas.md
