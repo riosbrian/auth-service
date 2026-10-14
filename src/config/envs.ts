@@ -21,6 +21,7 @@ const envSchema = z.object({
     .positive()
     .default(15 * 60 * 1000),
   RATE_LIMIT_MAX: z.coerce.number().int().positive().default(300),
+  JWT_SECRET: z.string().min(32),
   MONGO_URI: z.url(),
   DB_NAME: z.string(),
 });
