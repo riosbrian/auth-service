@@ -1,5 +1,7 @@
 import type { ErrorRequestHandler } from 'express';
 import { envs } from '#src/config/envs.js';
+import { DomainError } from '#src/modules/shared/domain-error.js';
+import { mapDomainErrorToAppError } from '#src/modules/shared/error-mapper.js';
 import { AppError, InternalServerError } from '#src/shared/errors/app-error.js';
 
 const hasStatusCode = (err: unknown): err is { statusCode: number } =>
@@ -8,6 +10,7 @@ const hasStatusCode = (err: unknown): err is { statusCode: number } =>
   typeof (err as { statusCode?: unknown }).statusCode === 'number';
 
 const normalize = (err: unknown): AppError => {
+  if (err instanceof DomainError) return mapDomainErrorToAppError(err);
   if (err instanceof AppError) return err;
   if (hasStatusCode(err) && err.statusCode >= 400 && err.statusCode < 500) {
     const message = err instanceof Error ? err.message : 'Invalid request';

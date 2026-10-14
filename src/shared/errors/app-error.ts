@@ -30,3 +30,9 @@ export class ForbiddenError extends AppError {
     super(message, 403);
   }
 }
+
+export class InvalidRequestError extends AppError {
+  constructor(message = 'Invalid Request') {
+    super(message, 400);
+  }
+}

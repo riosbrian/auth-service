@@ -21,13 +21,14 @@ const envSchema = z.object({
     .positive()
     .default(15 * 60 * 1000),
   RATE_LIMIT_MAX: z.coerce.number().int().positive().default(300),
+  MONGO_URI: z.url(),
+  DB_NAME: z.string(),
 });
 
 const parse = envSchema.safeParse(process.env);
 
 if (!parse.success) {
-  console.error('Invalid environment variables', parse.error.issues);
-  process.exit(1);
+  throw new Error('Invalid environment variables', { cause: parse.error });
 }
 
 export const envs = parse.data;
