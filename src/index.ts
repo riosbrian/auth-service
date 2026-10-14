@@ -1,5 +1,8 @@
+import { connectToMongodb } from '#src/data/mongodb/mongodb.connection.js';
 import server from '#src/server/server.js';
 import logger from '#src/shared/lib/pino/logger.js';
+
+await connectToMongodb();
 
 (() => {
   server.start();
