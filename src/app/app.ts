@@ -5,6 +5,7 @@ import { errorHandler } from '#src/app/middlewares/error-handler.js';
 import { httpLogger } from '#src/app/middlewares/http-logger.js';
 import { notFoundHandler } from '#src/app/middlewares/not-found.js';
 import { rateLimiter } from '#src/app/middlewares/rate-limit.js';
+import appRouter from '#src/app/router.js';
 import { envs } from '#src/config/envs.js';
 
 const app: Express = express();
@@ -21,6 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/health', (_req, res) => {
   res.status(200).json({ status: 'ok', uptime: process.uptime() });
 });
+
+app.use('/api/v1', appRouter);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
