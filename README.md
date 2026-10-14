@@ -43,8 +43,8 @@ The API runs at `http://localhost:3000`. Check its status at `GET /health`.
 
 The example environment is configured for local development. `MONGO_USER` and `MONGO_PASSWORD`
 initialize the MongoDB root user through Docker Compose, while `MONGO_URI` uses the same
-credentials and `DB_NAME` selects the application database. Replace all database credentials
-before deploying outside a local environment.
+credentials and `DB_NAME` selects the application database. Replace `JWT_SECRET` and all database
+credentials before deploying outside a local environment.
 
 ## 📜 Scripts
 

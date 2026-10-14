@@ -3,6 +3,9 @@ import { AppError } from '#src/shared/errors/app-error.js';
 
 const AUTH_ERROR_CODES = {
   EMAIL_ALREADY_REGISTERED: 409,
+  INVALID_CREDENTIALS: 401,
+  INVALID_TOKEN: 401,
+  TOKEN_EXPIRED: 401,
 } as const;
 
 export function mapDomainErrorToAppError(err: DomainError): AppError {
