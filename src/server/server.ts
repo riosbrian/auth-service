@@ -6,43 +6,32 @@ import logger from '#src/shared/lib/pino/logger.js';
 const server = http.createServer(app);
 
 function start(): void {
-  server.on('error', (err) => {
-    logger.error({ err }, 'HTTP server error');
-    process.exit(1);
-  });
-
   server.listen(envs.PORT, () => {
     logger.info(`Server running on http://localhost:${envs.PORT} - [${envs.NODE_ENV}]`);
   });
 }
 
-let isShuttingDown = false;
-let shutdownExitCode = 0;
+function onError(listener: (error: Error) => void): void {
+  server.on('error', listener);
+}
 
-function shutdown(signal: string, exitCode: number = 0): void {
-  shutdownExitCode = Math.max(shutdownExitCode, exitCode);
+async function stop(): Promise<void> {
+  if (!server.listening) return;
 
-  if (isShuttingDown) return;
-  isShuttingDown = true;
-
-  logger.info(`Signal ${signal} received`);
-  server.close((err) => {
-    if (err) {
-      logger.error({ err }, 'Failed to close HTTP server');
-      process.exit(1);
-    }
-
-    logger.info('HTTP server closed');
-    process.exit(shutdownExitCode);
+  await new Promise<void>((resolve, reject) => {
+    server.close((error) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve();
+    });
   });
-
-  setTimeout(() => {
-    logger.error('Forced shutdown after timeout');
-    process.exit(1);
-  }, envs.SHUTDOWN_TIMEOUT_MS).unref();
+  logger.info('HTTP server closed');
 }
 
 export default {
+  onError,
   start,
-  shutdown,
+  stop,
 };
