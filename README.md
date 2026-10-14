@@ -35,10 +35,16 @@ cd node-typescript-production-template
 corepack enable
 pnpm install
 cp .env.example .env
+docker compose up -d mongodb
 pnpm dev
 ```
 
 The API runs at `http://localhost:3000`. Check its status at `GET /health`.
+
+The example environment is configured for local development. `MONGO_USER` and `MONGO_PASSWORD`
+initialize the MongoDB root user through Docker Compose, while `MONGO_URI` uses the same
+credentials and `DB_NAME` selects the application database. Replace all database credentials
+before deploying outside a local environment.
 
 ## 📜 Scripts
 
@@ -76,8 +82,10 @@ not replace the compiler.
 ## 🐳 Docker
 
 ```bash
-docker compose up --build
+docker compose up -d mongodb
 ```
+
+The current Compose file starts MongoDB only. Run the API separately with `pnpm dev`.
 
 ## 📄 License
 
